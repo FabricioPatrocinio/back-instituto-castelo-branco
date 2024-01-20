@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
+      - id: black
+        language_version: python3.10
+        args: [ --line-length=120 ]
+        stages: [ commit ]
+  
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        language_version: python3.10
+        args: [ --line-length=120, --multi-line=3, --trailing-comma ]
+        stages: [ commit ]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: [ --ignore, "E501,W503,B105,B101" ]
+        stages: [ commit ]
+  
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [ --skip, "B101,B105,B106", --recursive, clumper ]
+        stages: [ commit ]
+        exclude: ^tests/
+    
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        language: system
+        entry: pytest
+        pass_filenames: false 
+        always_run: true
+        stages: [ push ]

@@ -1,0 +1,9 @@
+-r requirements.txt
+pre-commit
+black
+flake8
+pytest
+boto3
+requests
+isort
+bandit

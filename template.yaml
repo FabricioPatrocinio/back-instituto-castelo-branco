@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  instituto-castelo-branco
+
+Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
+  Function:
+    Timeout: 5
+    MemorySize: 128
+    Runtime: python3.12
+
+    Tracing: Active
+    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
+    LoggingConfig:
+      LogFormat: JSON
+  Api:
+    TracingEnabled: true
+Resources:
+  app:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
+    Properties:
+      Handler: main.lambda_handler
+      CodeUri: app
+      Description: Api para uso do site institucional do instituto castelo branco
+      Architectures:
+        - x86_64
+      Tracing: Active
+      Events:
+        PublicationsCreate:
+          Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
+          Properties:
+            Path: /publications/create
+            Method: POST
+              # Powertools for AWS Lambda (Python) env vars: https://awslabs.github.io/aws-lambda-powertools-python/#environment-variables
+        
+        RegistrationCreate:
+          Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
+          Properties:
+            Path: /registration/create
+            Method: POST
+
+        SwaggerUI:
+            Type: Api
+            Properties:
+                Path: /swagger
+                Method: GET
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco
+          POWERTOOLS_METRICS_NAMESPACE: Powertools
+          LOG_LEVEL: INFO
+      Tags:
+        LambdaPowertools: python
+
+  ApplicationResourceGroup:
+    Type: AWS::ResourceGroups::Group
+    Properties:
+      Name:
+        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      ResourceQuery:
+        Type: CLOUDFORMATION_STACK_1_0
+  ApplicationInsightsMonitoring:
+    Type: AWS::ApplicationInsights::Application
+    Properties:
+      ResourceGroupName:
+        Ref: ApplicationResourceGroup
+      AutoConfigurationEnabled: 'true'
+Outputs:
+  InstitutoCasteloBrancoApi:
+    Description: API Gateway endpoint URL for Prod environment for Instituto Castelo Branco Function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/instituto-castelo-branco"
+
+  app:
+    Description: Api para uso do site institucional do instituto castelo branco Lambda Function ARN
+    Value: !GetAtt app.Arn
