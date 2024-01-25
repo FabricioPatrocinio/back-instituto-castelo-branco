@@ -15,8 +15,8 @@ def test_api_publications_create(lambda_context) -> None:
     assert data["message"] == "hello world"
 
 
-def test_api_registration_create(lambda_context):
-    event_data = apigw_event(path="/registration/create")
+def test_api_enrollment_create(lambda_context):
+    event_data = apigw_event(path="/enrollment/create")
 
     ret = lambda_handler(event_data, lambda_context)
     data = json.loads(ret["body"])

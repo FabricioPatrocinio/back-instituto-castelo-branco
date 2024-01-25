@@ -3,3 +3,5 @@ aws-lambda-powertools[tracer]
 pydantic
 pydantic-settings
 pynamodb
+cryptography
+pydantic[email]

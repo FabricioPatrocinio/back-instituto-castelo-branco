@@ -33,22 +33,72 @@ Resources:
             Method: POST
               # Powertools for AWS Lambda (Python) env vars: https://awslabs.github.io/aws-lambda-powertools-python/#environment-variables
         
-        RegistrationCreate:
+        PublicationsGet:
+          Type: Api 
+          Properties:
+            Path: /publications/{page_size}
+            Method: GET
+        
+        PublicationsDelete:
+          Type: Api 
+          Properties:
+            Path: /publications/id/{id}
+            Method: DELETE
+
+        EnrollmentCreate:
+          Type: Api
+          Properties:
+            Path: /enrollment/
+            Method: POST
+        
+        EnrollmentGet:
+          Type: Api
+          Properties:
+            Path: /enrollment/{page_size}
+            Method: GET
+        
+        EnrollmentDelete:
+          Type: Api
+          Properties:
+            Path: /enrollment/id/{id}
+            Method: DELETE
+          
+        EnrollmentStudentCreate:
           Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
           Properties:
-            Path: /registration/create
+            Path: /enrollment/enrollment-student
             Method: POST
+        
+        EnrollmentStudentGet:
+          Type: Api
+          Properties:
+            Path: /enrollment/enrollment-student/{page_size}
+            Method: GET
+        
+        EnrollmentStudentDelete:
+          Type: Api
+          Properties:
+            Path: /enrollment/enrollment-student/id/{id}
+            Method: DELETE
+                
+        GeneratePresignedUrl:
+          Type: Api
+          Properties:
+            Path: /helpers/generate-presigned-url
+            Method: GET
 
         SwaggerUI:
             Type: Api
             Properties:
                 Path: /swagger
                 Method: GET
+  
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco
           POWERTOOLS_METRICS_NAMESPACE: Powertools
           LOG_LEVEL: INFO
+          ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
       Tags:
         LambdaPowertools: python
 
