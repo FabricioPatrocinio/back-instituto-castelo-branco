@@ -11,6 +11,6 @@ class PublicationsBaseSchema(BaseSchema):
 
 
 class PublicationsSchema(PublicationsBaseSchema):
-    id: str | UUID
+    id: UUID
     created_at: datetime
     updated_at: datetime

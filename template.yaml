@@ -38,12 +38,19 @@ Resources:
           Properties:
             Path: /registration/create
             Method: POST
+        
+        GeneratePresignedUrl:
+          Type: Api
+          Properties:
+            Path: /helpers/generate-presigned-url
+            Method: GET
 
         SwaggerUI:
             Type: Api
             Properties:
                 Path: /swagger
                 Method: GET
+  
       Environment:
         Variables:
           POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco

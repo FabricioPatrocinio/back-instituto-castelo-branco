@@ -9,7 +9,7 @@ from utils.tracer import tracer
 router = APIGatewayRouter()
 
 
-@router.post("/create")
+@router.patch("/create")
 @tracer.capture_method
 def _update_matricula(body: RegistrationBaseSchema) -> RegistrationSchema:
     metrics.add_metric(name="criacaoDeMatriculas", unit=MetricUnit.Count, value=1)
