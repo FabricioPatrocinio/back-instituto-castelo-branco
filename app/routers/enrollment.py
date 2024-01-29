@@ -21,7 +21,6 @@ from utils.tracer import tracer
 router = APIGatewayRouter()
 
 
-@router.post("/")
 @tracer.capture_method
 def _create_enrollment(body: EnrollmentRequestSchema) -> EnrollmentResponseSchema:
     metrics.add_metric(name="criacaoDeMatriculas", unit=MetricUnit.Count, value=1)
@@ -39,7 +38,7 @@ def _get_enrollment(page_size: int) -> list[EnrollmentResponseSchema]:
     return get_enrollment(page_size)
 
 
-@router.delete("/<id>")
+@router.delete("/id/<id>")
 @tracer.capture_method
 def _delete_enrollment(id: str) -> None:
     metrics.add_metric(name="deletarMatricula", unit=MetricUnit.Count, value=1)
@@ -57,7 +56,7 @@ def _create_enrollment_student(body: EnrollmentStudentRequestSchema) -> Enrollme
     return create_enrollment_student(body)
 
 
-@router.get("/<page-size>")
+@router.get("/enrollment-student/<page-size>")
 @tracer.capture_method
 def _get_enrollment_student(page_size: int) -> list[EnrollmentStudentResponseSchema]:
     metrics.add_metric(name="listaMatriculasEstudantes", unit=MetricUnit.Count, value=1)
@@ -65,7 +64,7 @@ def _get_enrollment_student(page_size: int) -> list[EnrollmentStudentResponseSch
     return get_enrollment_student(page_size)
 
 
-@router.delete("/<id>")
+@router.delete("/enrollment-student/id/<id>")
 @tracer.capture_method
 def _delete_enrollment_student(id: str) -> None:
     metrics.add_metric(name="deletarMatriculaEstudante", unit=MetricUnit.Count, value=1)

@@ -33,6 +33,7 @@ class EnrollmentStudentModel(Model):
     name = UnicodeAttribute()
     address = UnicodeAttribute()
     email = UnicodeAttribute()
+    phone = UnicodeAttribute()
     student_cpf = UnicodeAttribute()
     student_rg = UnicodeAttribute()
     grade = NumberAttribute()

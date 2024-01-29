@@ -4,7 +4,9 @@ from schemas.enrollment import EnrollmentStudentResponseSchema
 from utils.logger import logger
 
 
-def send_email_with_html_template(email_data: EnrollmentStudentResponseSchema):
+def send_email_with_html_template(data: dict):
+    parse_date = EnrollmentStudentResponseSchema(**data)
+
     aws_region = "us-east-1"
     ses_client = boto3.client("ses", region_name=aws_region)
 
@@ -15,31 +17,31 @@ def send_email_with_html_template(email_data: EnrollmentStudentResponseSchema):
             <title>Seu Título</title>
         </head>
         <body>
-            <p>Olá {email_data.name},</p>
+            <p>Olá {parse_date.name},</p>
             <p>Informações importantes:</p>
             <ul>
-                <li>Endereço: {email_data.address}</li>
-                <li>Email: {email_data.email}</li>
-                <li>CPF do Estudante: {email_data.student_cpf}</li>
-                <li>RG do Estudante: {email_data.student_rg}</li>
-                <li>Nota: {email_data.grade}</li>
-                <li>Nome da Escola: {email_data.school_name}</li>
-                <li>Responsável Financeiro: {email_data.financial_responsible_name or 'N/A'}</li>
-                <li>CPF do Responsável Financeiro: {email_data.financial_responsible_cpf or 'N/A'}</li>
+                <li>Endereço: {parse_date.address}</li>
+                <li>Email: {parse_date.email}</li>
+                <li>CPF do Estudante: {parse_date.student_cpf}</li>
+                <li>RG do Estudante: {parse_date.student_rg}</li>
+                <li>Nota: {parse_date.grade}</li>
+                <li>Nome da Escola: {parse_date.school_name}</li>
+                <li>Responsável Financeiro: {parse_date.financial_responsible_name or 'N/A'}</li>
+                <li>CPF do Responsável Financeiro: {parse_date.financial_responsible_cpf or 'N/A'}</li>
             </ul>
             <p>Obrigado!</p>
         </body>
         </html>
     """  # nosec
 
-    sender_email = "fabricioschiffer@gmail.com"
+    sender_email = "fabricioschiffer@gmail.com"  # TODO: Perdir email do instituto castelo branco
     subject = "Assunto do Email"
-    recipient_email = email_data.email
+    recipient_email = [parse_date.email]
 
     try:
         response = ses_client.send_email(
             Destination={
-                "ToAddresses": [recipient_email],
+                "ToAddresses": recipient_email,
             },
             Message={
                 "Body": {

@@ -27,7 +27,7 @@ def _get_publications(page_size: int) -> list[PublicationsSchema]:
     return get_publications(page_size)
 
 
-@router.delete("id/<id>")
+@router.delete("/id/<id>")
 @tracer.capture_method
 def _delete_publication(id: str) -> None:
     metrics.add_metric(name="deletarPublicacao", unit=MetricUnit.Count, value=1)

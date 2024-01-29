@@ -25,15 +25,17 @@ class EnrollmentStudentRequestSchema(BaseSchema):
     name: str
     address: str
     email: EmailStr
+    phone: str
     student_cpf: str = Field(min_length=11, max_length=14)
     student_rg: str = Field(min_length=7, max_length=9)
     grade: int
     school_name: str
     financial_responsible_name: str | None = None
-    financial_responsible_cpf: str | None = Field(min_length=11, max_length=14)
+    financial_responsible_cpf: str | None = Field(default=None, min_length=11, max_length=14)
 
     @field_validator(
         "email",
+        "phone",
         "student_cpf",
         "student_rg",
         "financial_responsible_name",
@@ -46,11 +48,13 @@ class EnrollmentStudentRequestSchema(BaseSchema):
 
 
 class EnrollmentStudentResponseSchema(EnrollmentStudentRequestSchema):
+    id: UUID
     created_at: datetime
     updated_at: datetime | None = None
 
     @field_validator(
         "email",
+        "phone",
         "student_cpf",
         "student_rg",
         "financial_responsible_name",

@@ -2,10 +2,11 @@ from uuid import uuid4
 
 import boto3
 from botocore import client
+from schemas import UrlPresignedResponseSchema
 from settings import settings
 
 
-def generate_presigned_url():
+def generate_presigned_url() -> UrlPresignedResponseSchema:
     """
     Generates pre-signed url for uploading files to S3,
     example: Frontend will be used to upload a file directly from the client

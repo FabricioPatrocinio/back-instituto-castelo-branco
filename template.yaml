@@ -15,6 +15,10 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
       LogFormat: JSON
   Api:
     TracingEnabled: true
+    Cors: # see CORS section
+      AllowOrigin: "'http://localhost:8080'"
+      AllowHeaders: "'Content-Type,Authorization'"
+
 Resources:
   app:
     Type: AWS::Serverless::Function # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
@@ -86,6 +90,18 @@ Resources:
           Properties:
             Path: /helpers/generate-presigned-url
             Method: GET
+        
+        CreateUser:
+          Type: Api
+          Properties:
+            Path: /auth/create
+            Method: POST
+        
+        AuthenticateUser:
+          Type: Api
+          Properties:
+            Path: /auth/token
+            Method: GET
 
         SwaggerUI:
             Type: Api
@@ -97,8 +113,9 @@ Resources:
         Variables:
           POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco
           POWERTOOLS_METRICS_NAMESPACE: Powertools
-          LOG_LEVEL: INFO
+          LOG_LEVEL: ERROR
           ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
+          JWT_ALGORITHM: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
       Tags:
         LambdaPowertools: python
 
@@ -115,6 +132,7 @@ Resources:
       ResourceGroupName:
         Ref: ApplicationResourceGroup
       AutoConfigurationEnabled: 'true'
+
 Outputs:
   InstitutoCasteloBrancoApi:
     Description: API Gateway endpoint URL for Prod environment for Instituto Castelo Branco Function

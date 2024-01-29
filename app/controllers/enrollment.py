@@ -30,7 +30,7 @@ def create_enrollment_student(data: EnrollmentStudentRequestSchema) -> Enrollmen
 
     model.save()
 
-    send_email_with_html_template(data)
+    send_email_with_html_template(model.to_simple_dict())
 
     return model.to_simple_dict()
 
