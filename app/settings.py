@@ -18,6 +18,7 @@ class GlobalSettings(BaseSettings):
     ENCRYPTION_KEY: str
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
+    LOG_LEVEL: str = "INFO"
 
 
 settings = GlobalSettings()

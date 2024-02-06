@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from pynamodb.attributes import BooleanAttribute, NumberAttribute, UnicodeAttribute, UTCDateTimeAttribute
+from pynamodb.attributes import BooleanAttribute, UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
 from settings import EnviromentEnum, settings
 
@@ -36,10 +36,11 @@ class EnrollmentStudentModel(Model):
     phone = UnicodeAttribute()
     student_cpf = UnicodeAttribute()
     student_rg = UnicodeAttribute()
-    grade = NumberAttribute()
+    status_student = UnicodeAttribute()
     school_name = UnicodeAttribute()
-    financial_responsible_name = UnicodeAttribute(null=True)
-    financial_responsible_cpf = UnicodeAttribute(null=True)
+    birth_date = UTCDateTimeAttribute()
+    financial_responsible_name = UnicodeAttribute()
+    financial_responsible_cpf = UnicodeAttribute()
     created_at = UTCDateTimeAttribute(default_for_new=datetime.utcnow())
     updated_at = UTCDateTimeAttribute(default=datetime.utcnow())
 

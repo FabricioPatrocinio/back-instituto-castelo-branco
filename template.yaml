@@ -5,7 +5,7 @@ Description: >
 
 Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
   Function:
-    Timeout: 5
+    Timeout: 28
     MemorySize: 128
     Runtime: python3.12
 
@@ -15,9 +15,11 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
       LogFormat: JSON
   Api:
     TracingEnabled: true
-    Cors: # see CORS section
-      AllowOrigin: "'http://localhost:8080'"
+    Cors:
+      AllowOrigin: "'https://www.institutocastelo.com.br'"
       AllowHeaders: "'Content-Type,Authorization'"
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+      AllowCredentials: "'true'"
 
 Resources:
   app:
@@ -101,7 +103,7 @@ Resources:
           Type: Api
           Properties:
             Path: /auth/token
-            Method: GET
+            Method: POST
 
         SwaggerUI:
             Type: Api
@@ -113,9 +115,10 @@ Resources:
         Variables:
           POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco
           POWERTOOLS_METRICS_NAMESPACE: Powertools
-          LOG_LEVEL: ERROR
+          LOG_LEVEL: DEBUG
           ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
-          JWT_ALGORITHM: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
+          JWT_SECRET_KEY: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
+          ENVIROMENT: prd
       Tags:
         LambdaPowertools: python
 

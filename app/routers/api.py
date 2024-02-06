@@ -1,8 +1,10 @@
-from aws_lambda_powertools.event_handler import APIGatewayRestResolver
+from aws_lambda_powertools.event_handler import APIGatewayRestResolver, CORSConfig
 
 from . import auth, enrollment, helpers, publications
 
-app = APIGatewayRestResolver(enable_validation=True)
+cors_config = CORSConfig(allow_origin="*", allow_headers=["Content-Type", "Authorization"], max_age=300)
+
+app = APIGatewayRestResolver(cors=cors_config, enable_validation=True)
 
 app.enable_swagger(path="/swagger")
 

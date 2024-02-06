@@ -10,11 +10,6 @@ class AuthenticateUserRequestSchema(BaseSchema):
     email: EmailStr
     password: str
 
-    @field_validator("email", "password", mode="after")
-    @classmethod
-    def parse_cpf(cls, value: str | EmailStr) -> str | EmailStr:
-        return encrypt(value)
-
 
 class UserRequestSchema(BaseSchema):
     name: str
@@ -22,9 +17,9 @@ class UserRequestSchema(BaseSchema):
     password: str
     phone: str
 
-    @field_validator("email", "password", mode="after")
+    @field_validator("password", mode="after")
     @classmethod
-    def parse_cpf(cls, value: str | EmailStr) -> str | EmailStr:
+    def _encrypt(cls, value: str | EmailStr) -> str | EmailStr:
         return encrypt(value)
 
 
@@ -33,7 +28,7 @@ class UserResponseSchema(UserRequestSchema):
     created_at: datetime
     updated_at: datetime | None = None
 
-    @field_validator("email", "password", mode="before")
+    @field_validator("password", mode="before")
     @classmethod
     def parse_cpf(cls, value: str | EmailStr) -> str | EmailStr:
         return decrypt(value)

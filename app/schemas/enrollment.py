@@ -28,10 +28,11 @@ class EnrollmentStudentRequestSchema(BaseSchema):
     phone: str
     student_cpf: str = Field(min_length=11, max_length=14)
     student_rg: str = Field(min_length=7, max_length=9)
-    grade: int
+    status_student: str
+    birth_date: datetime
     school_name: str
-    financial_responsible_name: str | None = None
-    financial_responsible_cpf: str | None = Field(default=None, min_length=11, max_length=14)
+    financial_responsible_name: str
+    financial_responsible_cpf: str = Field(min_length=11, max_length=14)
 
     @field_validator(
         "email",
