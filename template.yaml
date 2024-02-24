@@ -113,9 +113,11 @@ Resources:
   
       Environment:
         Variables:
-          POWERTOOLS_SERVICE_NAME: PowertoolsInstitutoCasteloBranco
-          POWERTOOLS_METRICS_NAMESPACE: Powertools
-          LOG_LEVEL: DEBUG
+          POWERTOOLS_SERVICE_NAME: instituto-castelo-branco
+          POWERTOOLS_METRICS_NAMESPACE: metrics
+          POWERTOOLS_LOG_LEVEL: CRITICAL
+          AWS_LAMBDA_LOG_LEVEL: CRITICAL
+          LOG_LEVEL: CRITICAL
           ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
           JWT_SECRET_KEY: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
           ENVIROMENT: prd
