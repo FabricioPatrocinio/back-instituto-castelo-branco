@@ -4,15 +4,16 @@ from schemas.auth import AuthenticateUserRequestSchema, TokenResponse, UserReque
 from utils.tracer import tracer
 
 router = APIGatewayRouter()
+tags = ["Auth"]
 
 
-@router.post("/token")
+@router.post("/token", tags=tags)
 @tracer.capture_method
 def _authenticate_user(data: AuthenticateUserRequestSchema) -> TokenResponse:
     return authenticate_user(data).model_dump()
 
 
-@router.post("/create")
+@router.post("/create", tags=tags)
 @tracer.capture_method
 def _create_user(data: UserRequestSchema) -> UserResponseSchema:
     return create_user(data)

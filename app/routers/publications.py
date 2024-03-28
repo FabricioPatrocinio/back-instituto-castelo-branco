@@ -5,9 +5,10 @@ from utils.logger import logger
 from utils.tracer import tracer
 
 router = APIGatewayRouter()
+tags = ["Publications"]
 
 
-@router.post("/create")
+@router.post("/create", tags=tags)
 @tracer.capture_method
 def _create_publication(body: PublicationsBaseSchema) -> PublicationsSchema:
     logger.info(body)
@@ -15,13 +16,13 @@ def _create_publication(body: PublicationsBaseSchema) -> PublicationsSchema:
     return create_publication(body)
 
 
-@router.get("/<page_size>")
+@router.get("/<page_size>", tags=tags)
 @tracer.capture_method
 def _get_publications(page_size: int) -> list[PublicationsSchema]:
     return get_publications(page_size)
 
 
-@router.delete("/id/<id>")
+@router.delete("/id/<id>", tags=tags)
 @tracer.capture_method
 def _delete_publication(id: str) -> None:
     return delete_publication(id)

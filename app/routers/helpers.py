@@ -5,9 +5,10 @@ from utils.jwt import jwt_auth_middleware
 from utils.tracer import tracer
 
 router = APIGatewayRouter()
+tags = ["Helpers"]
 
 
-@router.get("/generate-presigned-url")
+@router.get("/generate-presigned-url", tags=tags)
 @tracer.capture_method
 def _generate_presigned_url() -> UrlPresignedResponseSchema:
     jwt_auth_middleware(router)
