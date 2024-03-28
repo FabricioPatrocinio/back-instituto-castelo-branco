@@ -93,7 +93,7 @@ def send_email_with_html_template(data: dict):
     """  # nosec
 
     sender_email = "fabricioschiffer@gmail.com"
-    subject = f"Confirmação de inscrição (Curso de redação) - Inscrito {parse_date.name}"
+    subject = f"Confirmação de inscrição (Palestra Encontro de ideias) - Inscrito {parse_date.name}"
     recipient_email = ["fabricioschiffer@gmail.com", "joaoborgesfilho30@gmail.com", "geizacastelobranco@gmail.com"]
 
     try:
