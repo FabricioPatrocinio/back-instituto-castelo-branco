@@ -1,12 +1,12 @@
 import boto3
 from botocore.exceptions import ClientError
-from schemas.enrollment_student import EnrollmentStudentResponseSchema
+from schemas.lecture_registration import LectureRegistrationResponseSchema
 from utils.logger import logger
 from utils.parses import format_cpf, format_phone, format_rg
 
 
 def send_email_with_html_template(data: dict):
-    parse_date = EnrollmentStudentResponseSchema(**data)
+    parse_date = LectureRegistrationResponseSchema(**data)
 
     aws_region = "us-east-1"
     ses_client = boto3.client("ses", region_name=aws_region)
@@ -18,14 +18,14 @@ def send_email_with_html_template(data: dict):
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Formulário de Matrícula</title>
+            <title>Formulário de Inscrição</title>
         </head>
 
         <body>
             <main style="margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f4;">
                 <div style="max-width: 600px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px;">
 
-                    <h2 style="margin-bottom: 20px;">DADOS DO MATRICULADO</h2>
+                    <h2 style="margin-bottom: 20px;">DADOS DO INSCRITO</h2>
 
                     <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd;">
                         <tr style="border: 1px solid #ddd;">
@@ -69,21 +69,6 @@ def send_email_with_html_template(data: dict):
                         <tr style="border: 1px solid #ddd;">
                             <td style="border: 1px solid #ddd; padding: 10px;"><strong>Escolaridade:</strong></td>
                             <td style="border: 1px solid #ddd; padding: 10px;">{parse_date.status_student}</td>
-                        </tr>
-
-                        <tr style="border: 1px solid #ddd;">
-                            <th style="border: 1px solid #ddd; padding: 10px; color: #fff; background-color: rgba(24, 20, 20, 0.692)">
-                                Campo</th>
-                            <th style="border: 1px solid #ddd; padding: 10px; color: #fff; background-color: rgba(24, 20, 20, 0.692)">
-                                Dados do Responsável</th>
-                        </tr>
-                        <tr style="border: 1px solid #ddd;">
-                            <td style="border: 1px solid #ddd; padding: 10px;"><strong>Nome responsável financeiro:</strong></td>
-                            <td style="border: 1px solid #ddd; padding: 10px;"> {parse_date.financial_responsible_name or 'N/A'}</td>
-                        </tr>
-                        <tr style="border: 1px solid #ddd;">
-                            <td style="border: 1px solid #ddd; padding: 10px;"><strong>CPF do Responsável:</strong></td>
-                            <td style="border: 1px solid #ddd; padding: 10px;"> {format_cpf(parse_date.financial_responsible_cpf) or 'N/A'}</td>
                         </tr>
                     </table>
                 </div>

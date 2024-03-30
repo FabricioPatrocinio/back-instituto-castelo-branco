@@ -1,6 +1,6 @@
 from aws_lambda_powertools.event_handler.router import APIGatewayRouter
-from controllers.enrollment import create_enrollment_student, delete_enrollment_student, get_enrollment_student
-from schemas.enrollment import EnrollmentStudentRequestSchema, EnrollmentStudentResponseSchema
+from controllers.enrollment_student import create_enrollment_student, delete_enrollment_student, get_enrollment_student
+from schemas.enrollment_student import EnrollmentStudentRequestSchema, EnrollmentStudentResponseSchema
 from utils.logger import logger
 from utils.tracer import tracer
 

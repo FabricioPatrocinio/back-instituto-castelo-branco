@@ -12,8 +12,8 @@ def format_cpf(cpf) -> str:
     cpf = "".join(filter(str.isdigit, cpf))
 
     if len(cpf) == 11:
-        cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-        return cpf_formatado
+        cpf_format = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+        return cpf_format
 
     return cpf
 

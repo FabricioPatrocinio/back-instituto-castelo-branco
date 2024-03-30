@@ -70,7 +70,7 @@ Resources:
             Method: DELETE
           
         EnrollmentStudentCreate:
-          Type: Api # More info about API Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
+          Type: Api
           Properties:
             Path: /enrollment-student
             Method: POST
@@ -86,6 +86,12 @@ Resources:
           Properties:
             Path: /enrollment-student/id/{id}
             Method: DELETE
+        
+        LectureRegistrationCreate:
+          Type: Api
+          Properties:
+            Path: /lecture-registration
+            Method: POST
                 
         GeneratePresignedUrl:
           Type: Api
