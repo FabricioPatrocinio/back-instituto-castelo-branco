@@ -1,6 +1,7 @@
 import json
 
-from app.main import lambda_handler
+from main import lambda_handler
+
 from tests.data.apigw_event import apigw_event
 
 

@@ -18,7 +18,7 @@ def format_cpf(cpf) -> str:
     return cpf
 
 
-def format_rg(rg):
+def format_rg(rg) -> str:
     rg = "".join(filter(str.isdigit, rg))
 
     if len(rg) == 7:

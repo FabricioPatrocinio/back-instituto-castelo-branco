@@ -2,9 +2,11 @@ from datetime import datetime
 from uuid import uuid4
 
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
+from pynamodb.exceptions import PutError
 from pynamodb.indexes import AllProjection, LocalSecondaryIndex
 from pynamodb.models import Model
 from settings import EnviromentEnum, settings
+from utils.exceptions import EmailAlreadyExistsError
 
 environment = settings.ENVIROMENT
 
@@ -32,6 +34,21 @@ class UserModel(Model):
     updated_at = UTCDateTimeAttribute(default=datetime.utcnow())
 
     email_index = EmailIndex()
+
+    @classmethod
+    def create_unique(cls, **kwargs):
+        email = kwargs.get("email")
+
+        if cls.email_index.count(email) > 0:
+            raise EmailAlreadyExistsError
+
+        model = cls(**kwargs)
+
+        try:
+            model.save()
+            return model
+        except PutError as error:
+            raise error
 
 
 if environment == EnviromentEnum.TEST:

@@ -51,22 +51,28 @@ Resources:
             Path: /publications/id/{id}
             Method: DELETE
 
-        EnrollmentCreate:
+        PublicationCardCreate:
           Type: Api
           Properties:
-            Path: /enrollment/
+            Path: /publication-card/
             Method: POST
-        
-        EnrollmentGet:
+
+        PublicationCardGet:
           Type: Api
           Properties:
-            Path: /enrollment/{page_size}
+            Path: /publication-card/id/{id}
             Method: GET
         
-        EnrollmentDelete:
+        PublicationCardGetAll:
           Type: Api
           Properties:
-            Path: /enrollment/id/{id}
+            Path: /publication-card/get-all/limit/{limit}/page-size/{page_size}
+            Method: GET
+        
+        PublicationCardDelete:
+          Type: Api
+          Properties:
+            Path: /publication-card/id/{id}
             Method: DELETE
           
         EnrollmentStudentCreate:
@@ -90,7 +96,7 @@ Resources:
         LectureRegistrationCreate:
           Type: Api
           Properties:
-            Path: /lecture-registration
+            Path: /lecture-registration/
             Method: POST
                 
         GeneratePresignedUrl:

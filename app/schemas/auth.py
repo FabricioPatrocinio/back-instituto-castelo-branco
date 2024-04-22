@@ -1,9 +1,9 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import EmailStr, field_validator
+from pydantic import EmailStr, Field, field_validator
 from schemas import BaseSchema
-from utils.cryptographic import decrypt, encrypt
+from utils.cryptographic import encrypt
 
 
 class AuthenticateUserRequestSchema(BaseSchema):
@@ -27,11 +27,7 @@ class UserResponseSchema(UserRequestSchema):
     id: UUID
     created_at: datetime
     updated_at: datetime | None = None
-
-    @field_validator("password", mode="before")
-    @classmethod
-    def parse_cpf(cls, value: str | EmailStr) -> str | EmailStr:
-        return decrypt(value)
+    password: str | None = Field(exclude=True)
 
 
 class TokenResponse(BaseSchema):

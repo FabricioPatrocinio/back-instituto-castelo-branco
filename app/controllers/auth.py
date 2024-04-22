@@ -10,9 +10,7 @@ from utils.jwt import create_jwt_token
 
 
 def create_user(data: UserRequestSchema) -> UserResponseSchema:
-    model = UserModel(**data.model_dump(exclude_none=True))
-
-    model.save()
+    model = UserModel.create_unique(**data.model_dump(exclude_none=True))
 
     return model.to_simple_dict()
 
@@ -31,8 +29,8 @@ def authenticate_user(data: AuthenticateUserRequestSchema) -> TokenResponse:
                 token_type="bearer",
             )
         else:
-            raise UnauthorizedError(msg=f"Senha incorreta DB:{user.password} REQUEST: {data.password}")
+            raise UnauthorizedError(msg="Senha incorreta")
     except (DoesNotExist, StopIteration):
         raise NotFoundError(msg="Usuário não encontrado")
-    except PyJWKError:
-        raise InternalServerError(msg="Erro ao gerar token")
+    except PyJWKError as error:
+        raise InternalServerError(msg=f"Erro ao gerar token: {error}")
