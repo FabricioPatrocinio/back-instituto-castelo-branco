@@ -16,7 +16,7 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
   Api:
     TracingEnabled: true
     Cors:
-      AllowOrigin: "'https://www.institutocastelo.com.br'"
+      AllowOrigin: "'http://localhost:8080'"
       AllowHeaders: "'Content-Type,Authorization'"
       AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
       AllowCredentials: "'true'"
@@ -57,6 +57,12 @@ Resources:
             Path: /publication-card/
             Method: POST
 
+        PublicationCardUpdate:
+          Type: Api
+          Properties:
+            Path: /publication-card/
+            Method: PUT
+
         PublicationCardGet:
           Type: Api
           Properties:
@@ -72,7 +78,7 @@ Resources:
         PublicationCardDelete:
           Type: Api
           Properties:
-            Path: /publication-card/id/{id}
+            Path: /publication-card/id/{publication_id}
             Method: DELETE
           
         EnrollmentStudentCreate:
@@ -132,7 +138,9 @@ Resources:
           LOG_LEVEL: CRITICAL
           ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
           JWT_SECRET_KEY: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
-          ENVIROMENT: prd
+          ENVIROMENT: local
+          RECIPIENT_EMAILS: fabricioschiffer@gmail.com
+
       Tags:
         LambdaPowertools: python
 

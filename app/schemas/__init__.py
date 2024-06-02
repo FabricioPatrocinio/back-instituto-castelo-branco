@@ -12,3 +12,4 @@ class BaseSchema(BaseModel):
 
 class UrlPresignedResponseSchema(BaseSchema):
     url_presigned: str
+    file_name: str

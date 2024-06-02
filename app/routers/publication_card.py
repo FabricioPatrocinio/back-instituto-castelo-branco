@@ -5,8 +5,13 @@ from controllers.publication_card import (
     delete_publication_card,
     get_all_publication_cards,
     get_publication_card,
+    update_publication_card,
 )
-from schemas.publication_card import PublicationCardRequestSchema, PublicationCardResponseSchema
+from schemas.publication_card import (
+    PublicationCardRequestSchema,
+    PublicationCardResponseSchema,
+    PublicationCardUpdateSchema,
+)
 from utils.jwt import JwtAuthMiddleware
 from utils.logger import logger
 from utils.tracer import tracer
@@ -25,6 +30,19 @@ def _create_publication_card(body: PublicationCardRequestSchema) -> PublicationC
     logger.info(body.model_dump)
 
     return create_publication_card(body)
+
+
+@router.put(
+    rule="/",
+    tags=tags,
+    summary="Atualiza uma publicacao do formato de card na home e se tiver nova imagem deleta a anterior",
+    middlewares=[JwtAuthMiddleware()],
+)
+@tracer.capture_method
+def _update_publication_card(body: PublicationCardUpdateSchema) -> PublicationCardResponseSchema:
+    logger.info(body.model_dump)
+
+    return update_publication_card(body)
 
 
 @router.get(

@@ -1,25 +1,16 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import EmailStr, Field, field_validator
 from schemas import BaseSchema
 
 
 class PublicationCardRequestSchema(BaseSchema):
-    active: bool = False
+    id: UUID | None = None
     title: str
-    emails: list[EmailStr]
     paragraph: str
-    expires_at: datetime | None = Field(None, description="Data de expiracao para controlar tempo de visualizacao")
-    img_id: UUID | None = None
+    img_name: str | None = None
     link: str | None = None
-
-    @field_validator("img_id")
-    def parser_uuid(cls, value) -> str:
-        if value:
-            return str(value)
-
-        return value
+    text_button_submit: str | None = None
 
 
 class PublicationCardResponseSchema(PublicationCardRequestSchema):
@@ -29,11 +20,9 @@ class PublicationCardResponseSchema(PublicationCardRequestSchema):
 
 
 class PublicationCardUpdateSchema(BaseSchema):
-    active: bool = None
-    emails: list[EmailStr] | None = None
-    value: float | None = None
+    id: UUID
     title: str | None = None
     paragraph: str | None = None
-    expires_at: datetime | None = None
-    img_id: UUID | None = None
+    img_name: str | None = None
     link: str | None = None
+    text_button_submit: str | None = None

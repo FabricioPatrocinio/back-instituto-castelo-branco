@@ -1,7 +1,6 @@
 from datetime import datetime
-from uuid import uuid4
 
-from pynamodb.attributes import BooleanAttribute, ListAttribute, UnicodeAttribute, UTCDateTimeAttribute
+from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
 from settings import EnviromentEnum, settings
 
@@ -12,14 +11,12 @@ class PublicationCardModel(Model):
     class Meta:
         table_name = f"PublicationCardModel{environment.capitalize()}"
 
-    id = UnicodeAttribute(hash_key=True, default_for_new=str(uuid4()))
-    active = BooleanAttribute(default=False)
+    id = UnicodeAttribute(hash_key=True)
     title = UnicodeAttribute()
-    emails = ListAttribute(null=True, of=UnicodeAttribute)
     paragraph = UnicodeAttribute()
-    img_id = UnicodeAttribute(null=True)
+    img_name = UnicodeAttribute(null=True)
     link = UnicodeAttribute(null=True)
-    expires_at = UTCDateTimeAttribute(null=True)
+    text_button_submit = UnicodeAttribute(null=True)
     created_at = UTCDateTimeAttribute(default_for_new=datetime.utcnow())
     updated_at = UTCDateTimeAttribute(default=datetime.utcnow())
 

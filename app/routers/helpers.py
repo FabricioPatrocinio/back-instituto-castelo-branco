@@ -10,5 +10,5 @@ tags = ["Helpers"]
 
 @router.get(rule="/generate-presigned-url", tags=tags, middlewares=[JwtAuthMiddleware()])
 @tracer.capture_method
-def _generate_presigned_url() -> UrlPresignedResponseSchema:
-    return generate_presigned_url()
+def _generate_presigned_url(file_type: str) -> UrlPresignedResponseSchema:
+    return generate_presigned_url(file_type)

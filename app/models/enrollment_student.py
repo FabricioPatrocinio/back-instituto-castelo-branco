@@ -22,6 +22,8 @@ class EnrollmentStudentModel(Model):
     status_student = UnicodeAttribute()
     school_name = UnicodeAttribute()
     birth_date = UTCDateTimeAttribute()
+    type_enrollment = UnicodeAttribute()
+    description_enrollment = UnicodeAttribute()
     financial_responsible_name = UnicodeAttribute()
     financial_responsible_cpf = UnicodeAttribute()
     created_at = UTCDateTimeAttribute(default_for_new=datetime.utcnow())

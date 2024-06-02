@@ -19,6 +19,6 @@ def get_enrollment_student(page_size: int) -> list[EnrollmentStudentResponseSche
     return model
 
 
-def delete_enrollment_student(id: str) -> None:
-    model = EnrollmentStudentModel.get(hash_key=id)
+def delete_enrollment_student(_id: str) -> None:
+    model = EnrollmentStudentModel.get(hash_key=_id)
     model.delete()

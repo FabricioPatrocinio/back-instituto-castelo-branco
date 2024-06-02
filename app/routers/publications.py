@@ -22,7 +22,7 @@ def _get_publications(page_size: int) -> list[PublicationsSchema]:
     return get_publications(page_size)
 
 
-@router.delete("/id/<id>", tags=tags)
+@router.delete("/id/<publication_id>", tags=tags)
 @tracer.capture_method
-def _delete_publication(id: str) -> None:
-    return delete_publication(id)
+def _delete_publication(publication_id: str) -> None:
+    return delete_publication(publication_id)

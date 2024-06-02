@@ -16,6 +16,8 @@ class EnrollmentStudentRequestSchema(BaseSchema):
     status_student: str
     birth_date: datetime
     school_name: str
+    type_enrollment: str
+    description_enrollment: str
     financial_responsible_name: str
     financial_responsible_cpf: str = Field(min_length=11, max_length=14)
 

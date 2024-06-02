@@ -1,6 +1,7 @@
 import boto3
 from botocore.exceptions import ClientError
 from schemas.enrollment_student import EnrollmentStudentResponseSchema
+from settings import settings
 from utils.logger import logger
 from utils.parses import format_cpf, format_phone, format_rg
 
@@ -93,8 +94,8 @@ def send_email_with_html_template(data: dict):
     """  # nosec
 
     sender_email = "fabricioschiffer@gmail.com"
-    subject = f"Confirmação de inscrição (Curso Planejamento Estratégico - UNIP) - Inscrito {parse_date.name}"
-    recipient_email = ["fabricioschiffer@gmail.com", "joaoborgesfilho30@gmail.com", "geizacastelobranco@gmail.com"]
+    subject = f"Confirmação de inscrição ({parse_date.type_enrollment}) - Inscrito {parse_date.name}"
+    recipient_email = settings.RECIPIENT_EMAILS.split(",")
 
     try:
         response = ses_client.send_email(
