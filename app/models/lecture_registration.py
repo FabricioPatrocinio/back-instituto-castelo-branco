@@ -1,9 +1,10 @@
 from datetime import datetime
 from uuid import uuid4
 
+from models import create_table
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
-from settings import EnviromentEnum, settings
+from settings import settings
 
 environment = settings.ENVIROMENT
 
@@ -26,6 +27,4 @@ class LectureRegistrationModel(Model):
     updated_at = UTCDateTimeAttribute(default=datetime.utcnow())
 
 
-if environment == EnviromentEnum.TEST:
-    if not LectureRegistrationModel.exists():
-        LectureRegistrationModel.create_table(read_capacity_units=1, write_capacity_units=1, wait=True)
+create_table(LectureRegistrationModel)

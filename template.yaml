@@ -38,18 +38,6 @@ Resources:
             Path: /publications/create
             Method: POST
               # Powertools for AWS Lambda (Python) env vars: https://awslabs.github.io/aws-lambda-powertools-python/#environment-variables
-        
-        PublicationsGet:
-          Type: Api 
-          Properties:
-            Path: /publications/{page_size}
-            Method: GET
-        
-        PublicationsDelete:
-          Type: Api 
-          Properties:
-            Path: /publications/id/{id}
-            Method: DELETE
 
         PublicationCardCreate:
           Type: Api
@@ -122,6 +110,36 @@ Resources:
           Properties:
             Path: /auth/token
             Method: POST
+
+        TopicsCreate:
+          Type: Api
+          Properties:
+            Path: /topics/
+            Method: POST
+
+        TopicsUpdate:
+          Type: Api
+          Properties:
+            Path: /topics/
+            Method: PUT
+
+        TopicsGet:
+          Type: Api
+          Properties:
+            Path: /topics/id/{id}
+            Method: GET
+
+        TopicsGetAll:
+          Type: Api
+          Properties:
+            Path: /topics/get-all/limit/{limit}/page-size/{page_size}
+            Method: GET
+
+        TopicsDelete:
+          Type: Api
+          Properties:
+            Path: /topics/id/{topic_id}
+            Method: DELETE
 
         SwaggerUI:
             Type: Api

@@ -1,11 +1,12 @@
 from datetime import datetime
 from uuid import uuid4
 
+from models import create_table
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.exceptions import PutError
 from pynamodb.indexes import AllProjection, LocalSecondaryIndex
 from pynamodb.models import Model
-from settings import EnviromentEnum, settings
+from settings import settings
 from utils.exceptions import EmailAlreadyExistsError
 
 environment = settings.ENVIROMENT
@@ -51,6 +52,4 @@ class UserModel(Model):
             raise error
 
 
-if environment == EnviromentEnum.TEST:
-    if not UserModel.exists():
-        UserModel.create_table(read_capacity_units=1, write_capacity_units=1, wait=True)
+create_table(UserModel)

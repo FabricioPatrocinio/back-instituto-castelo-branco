@@ -15,6 +15,7 @@ from utils.s3 import delete_image_from_s3
 
 def create_publication_card(schema: PublicationCardRequestSchema) -> PublicationCardResponseSchema:
     schema.id = str(uuid4())
+
     model = PublicationCardModel(**schema.model_dump())
 
     model.save()
@@ -45,6 +46,9 @@ def delete_publication_card(publication_id: str) -> None:
 
     model.delete()
 
+    if not model.img_name:
+        return
+
     delete_image_from_s3(settings.S3_BUCKET_NAME, model.img_name)
 
 
@@ -53,6 +57,7 @@ def update_publication_card(schema: PublicationCardUpdateSchema) -> PublicationC
     model = PublicationCardModel.get(schema.id)
 
     new_image = model.img_name != schema.img_name
+
     if new_image:
         delete_image_from_s3(settings.S3_BUCKET_NAME, model.img_name)
 
