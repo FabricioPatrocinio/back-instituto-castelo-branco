@@ -56,17 +56,20 @@ def update_topics(schema: TopicsUpdateSchema) -> TopicsResponseSchema:
     Update topic taking into account changes in sequence order, modifying if
     a topic is necessary to inherit the order of the updated one in question
     """
-    primary_model = TopicsModel.get(schema.id)
+    primary_model = TopicsModel.get(str(schema.id))
 
-    if order_sequence := schema.order_sequence:
-        secondary_model = list(TopicsModel.scan(TopicsModel.order_sequence == order_sequence))
+    if schema.order_sequence and primary_model.order_sequence != schema.order_sequence:
+        secondary_model = list(TopicsModel.scan(TopicsModel.order_sequence == schema.order_sequence))
 
         if secondary_model:
-            secondary_model.order_sequence = order_sequence
-            secondary_model.updated_at = current_utc_time()
-            secondary_model.save()
+            secondary_model[0].order_sequence = primary_model.order_sequence
+            secondary_model[0].updated_at = current_utc_time()
+            secondary_model[0].save()
 
-            primary_model.order_sequence = order_sequence
+            primary_model.order_sequence = schema.order_sequence
+
+    if title := schema.title:
+        primary_model.title = title
 
     primary_model.updated_at = current_utc_time()
     primary_model.save()

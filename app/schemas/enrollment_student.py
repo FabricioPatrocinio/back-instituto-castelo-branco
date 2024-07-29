@@ -18,8 +18,8 @@ class EnrollmentStudentRequestSchema(BaseSchema):
     school_name: str
     type_enrollment: str
     description_enrollment: str
-    financial_responsible_name: str
-    financial_responsible_cpf: str = Field(min_length=11, max_length=14)
+    financial_responsible_name: str | None
+    financial_responsible_cpf: str | None
 
     @field_validator(
         "email",

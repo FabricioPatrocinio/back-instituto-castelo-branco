@@ -49,7 +49,6 @@ def _update_publication_card(body: PublicationCardUpdateSchema) -> PublicationCa
     rule="/id/<id>",
     tags=tags,
     summary="Pega uma publicacao no formato de card na home",
-    middlewares=[JwtAuthMiddleware()],
 )
 @tracer.capture_method
 def _get_publication_card(id: str) -> PublicationCardResponseSchema:

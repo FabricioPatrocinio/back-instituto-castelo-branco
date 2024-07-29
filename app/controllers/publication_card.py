@@ -53,8 +53,11 @@ def delete_publication_card(publication_id: str) -> None:
 
 
 def update_publication_card(schema: PublicationCardUpdateSchema) -> PublicationCardResponseSchema:
-    publication_card = update_item(model=PublicationCardModel, item_id=schema.id, update_values=schema.model_dump())
-    model = PublicationCardModel.get(schema.id)
+    publication_card = update_item(
+        model=PublicationCardModel, item_id=str(schema.id), update_values=schema.model_dump()
+    )
+
+    model = PublicationCardModel.get(str(schema.id))
 
     new_image = model.img_name != schema.img_name
 

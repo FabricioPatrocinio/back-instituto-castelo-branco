@@ -19,7 +19,7 @@ def update_item(model: ModelPynamodb, item_id: str, update_values: dict) -> dict
     item = model.get(item_id)
 
     for key, value in update_values.items():
-        if key != "id" and value is not None:
+        if key != "id" and value:
             setattr(item, key, value)
 
     item.updated_at = current_utc_time()

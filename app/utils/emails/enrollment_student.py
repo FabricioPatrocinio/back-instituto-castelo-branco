@@ -84,7 +84,7 @@ def send_email_with_html_template(data: dict):
                         </tr>
                         <tr style="border: 1px solid #ddd;">
                             <td style="border: 1px solid #ddd; padding: 10px;"><strong>CPF do Responsável:</strong></td>
-                            <td style="border: 1px solid #ddd; padding: 10px;"> {format_cpf(parse_date.financial_responsible_cpf) or 'N/A'}</td>
+                            <td style="border: 1px solid #ddd; padding: 10px;"> {format_cpf(parse_date.financial_responsible_cpf) if parse_date.financial_responsible_cpf else 'N/A'}</td>
                         </tr>
                     </table>
                 </div>
