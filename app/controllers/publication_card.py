@@ -3,6 +3,7 @@ from uuid import uuid4
 from aws_lambda_powertools.event_handler.exceptions import NotFoundError
 from models import update_item
 from models.publication_card import PublicationCardModel
+from models.topics import TopicsModel
 from pynamodb.exceptions import DoesNotExist
 from schemas.publication_card import (
     PublicationCardRequestSchema,
@@ -24,7 +25,8 @@ def create_publication_card(schema: PublicationCardRequestSchema) -> Publication
 
 
 def get_all_publication_cards(limit: int, page_size: int) -> list[PublicationCardResponseSchema]:
-    model = PublicationCardModel.scan(limit=limit, page_size=page_size)
+    # model = PublicationCardModel.scan(limit=limit, page_size=page_size)
+    model = TopicsModel.scan(limit=limit, page_size=page_size)
 
     return model
 

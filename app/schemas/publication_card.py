@@ -7,8 +7,8 @@ from schemas import BaseSchema
 class PublicationCardRequestSchema(BaseSchema):
     id: UUID | None = None
     topic: UUID | str | None = None
-    title: str
-    paragraph: str
+    title: str | None = None
+    paragraph: str | None = None
     img_name: str | None = None
     link: str | None = None
     is_internal_link: bool | None = False

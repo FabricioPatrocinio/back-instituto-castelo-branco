@@ -13,8 +13,8 @@ class PublicationCardModel(Model):
 
     id = UnicodeAttribute(hash_key=True)
     topic = UnicodeAttribute(null=True)
-    title = UnicodeAttribute()
-    paragraph = UnicodeAttribute()
+    title = UnicodeAttribute(null=True)
+    paragraph = UnicodeAttribute(null=True)
     img_name = UnicodeAttribute(null=True)
     link = UnicodeAttribute(null=True)
     is_internal_link = BooleanAttribute(null=True, default=True)

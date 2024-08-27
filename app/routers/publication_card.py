@@ -59,7 +59,7 @@ def _get_publication_card(id: str) -> PublicationCardResponseSchema:
 
 
 @router.get(
-    rule="/get-all/limit/<limit>/page-size/<page_size>",
+    rule="/list/<limit>/page-size/<page_size>",
     tags=tags,
     summary="Pega todas as publicacoes por tamanho de paginacao",
 )
@@ -71,8 +71,11 @@ def _get_all_publication_cards(limit: int, page_size: int) -> list[PublicationCa
 
 
 @router.delete(
-    rule="/id/<id>", tags=tags, summary="Deleta uma publicacao no formato de card", middlewares=[JwtAuthMiddleware()]
+    rule="/publication-id/<publication_id>",
+    tags=tags,
+    summary="Deleta uma publicacao no formato de card",
+    middlewares=[JwtAuthMiddleware()],
 )
 @tracer.capture_method
-def _delete_publication_card(id: str) -> None:
-    return delete_publication_card(id)
+def _delete_publication_card(publication_id: str) -> None:
+    return delete_publication_card(publication_id)

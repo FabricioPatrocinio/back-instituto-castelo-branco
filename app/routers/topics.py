@@ -59,7 +59,7 @@ def _get_all_topics(limit: int, page_size: int) -> list[TopicsResponseSchema]:
     return topics
 
 
-@router.delete(rule="/id/<id>", tags=tags, summary="Deleta topicos", middlewares=[JwtAuthMiddleware()])
+@router.delete(rule="/topic-id/<topic_id>", tags=tags, summary="Deleta topicos", middlewares=[JwtAuthMiddleware()])
 @tracer.capture_method
-def _delete_topics(id: str) -> None:
-    return delete_topics(id)
+def _delete_topics(topic_id: str) -> None:
+    return delete_topics(topic_id)

@@ -5,7 +5,7 @@ Description: >
 
 Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
   Function:
-    Timeout: 28
+    Timeout: 300
     MemorySize: 128
     Runtime: python3.12
 
@@ -16,10 +16,11 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
   Api:
     TracingEnabled: true
     Cors:
-      AllowOrigin: "'http://localhost:8080'"
+      AllowOrigin: "'https://www.institutocastelo.com.br'"
       AllowHeaders: "'Content-Type,Authorization'"
       AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
       AllowCredentials: "'true'"
+      MaxAge: "'300'"
 
 Resources:
   app:
@@ -57,16 +58,16 @@ Resources:
             Path: /publication-card/id/{id}
             Method: GET
         
-        PublicationCardGetAll:
+        PublicationCardListPages:
           Type: Api
           Properties:
-            Path: /publication-card/get-all/limit/{limit}/page-size/{page_size}
+            Path: /publication-card/list/{limit}/page-size/{page_size}
             Method: GET
         
         PublicationCardDelete:
           Type: Api
           Properties:
-            Path: /publication-card/id/{publication_id}
+            Path: /publication-card/publication-id/{publication_id}
             Method: DELETE
           
         EnrollmentStudentCreate:
@@ -86,12 +87,6 @@ Resources:
           Properties:
             Path: /enrollment-student/id/{id}
             Method: DELETE
-        
-        LectureRegistrationCreate:
-          Type: Api
-          Properties:
-            Path: /lecture-registration/
-            Method: POST
                 
         GeneratePresignedUrl:
           Type: Api
@@ -138,7 +133,7 @@ Resources:
         TopicsDelete:
           Type: Api
           Properties:
-            Path: /topics/id/{topic_id}
+            Path: /topics/topic-id/{topic_id}
             Method: DELETE
 
         SwaggerUI:
@@ -151,13 +146,14 @@ Resources:
         Variables:
           POWERTOOLS_SERVICE_NAME: instituto-castelo-branco
           POWERTOOLS_METRICS_NAMESPACE: metrics
-          POWERTOOLS_LOG_LEVEL: CRITICAL
-          AWS_LAMBDA_LOG_LEVEL: CRITICAL
-          LOG_LEVEL: CRITICAL
+          POWERTOOLS_LOG_LEVEL: ERROR
+          POWERTOOLS_LOGGER_LOG_EVENT: true
+          AWS_LAMBDA_LOG_LEVEL: ERROR
+          LOG_LEVEL: ERROR
           ENCRYPTION_KEY: 77KbPtn4sGPa1jaJBfxfS8OOpizJPmng20LmCV6h-SE=
           JWT_SECRET_KEY: 219b4080bae904998538010cf696da4119ed26d8953dcd9d8b764f25a0c8fe88
-          ENVIROMENT: local
-          RECIPIENT_EMAILS: fabricioschiffer@gmail.com
+          ENVIROMENT: prd
+          RECIPIENT_EMAILS: fabricioschiffer@gmail.com,joaoborgesfilho30@gmail.com,geizacastelobranco@gmail.com
 
       Tags:
         LambdaPowertools: python

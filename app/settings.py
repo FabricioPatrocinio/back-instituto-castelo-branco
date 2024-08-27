@@ -12,7 +12,7 @@ class EnviromentEnum(str, Enum):
 
 class GlobalSettings(BaseSettings):
     SERVICE_NAME: str = "instituto-castelo-branco"
-    ENVIROMENT: EnviromentEnum = EnviromentEnum.LOCAL
+    ENVIROMENT: EnviromentEnum = EnviromentEnum.PRD.value
     S3_BUCKET_NAME: str = "instituto-castelo-branco-images"
     PRESIGNED_URL_EXPIRES_IN: int = 7200
     ENCRYPTION_KEY: str
